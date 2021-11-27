@@ -8,3 +8,5 @@ module.exports = {
   trailingComma: 'none',
   bracketSameLine: false
 }
+
+module.exports = options
