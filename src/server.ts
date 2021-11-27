@@ -1,10 +1,12 @@
-import Express from 'express'
+import express from 'express'
+import notFound from './routes/notFound'
 
-const app = Express()
+const app = express()
 const PORT = 3000
 
 app.get('/', (_req, res) => {
-  res.send("Hellooo")
+  res.send('Hellooo')
 })
 
+app.use('*', notFound)
 app.listen(PORT)
