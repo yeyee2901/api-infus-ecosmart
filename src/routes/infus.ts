@@ -1,36 +1,29 @@
 import express from 'express';
-import {
-  queryData,
-  IInfusData
-} from '../controller/controller_infus';
+import { mysqlGetData, IInfusData } from '../controller/controller_infus';
 
 const router = express.Router();
 
-// DB info
-const host = `abimanyu.eng.wima.ac.id`;
-const user = `5103018003`;
-const password = `5103018003`;
-const database = `5103818003`;
-const table = `coba_image`;
+// DB info, todo: move to ENV
+const host = `localhost`;
+const user = `yeyee`;
+const password = `shredder555`;
+const database = `infus`;
+const table = `infus_table`;
 const query = `SELECT * FROM ${table}`;
 
 router.route('/infus/:id').get((_request, response) => {
-  queryData(host, user, password, database, query, result_array => {
-    // check if result is array of records
-    if( Array.isArray(result_array) ){
-      const result = result_array[0]
+  mysqlGetData(host, user, password, database, query, (resultArray) => {
 
+    // check if result is array type or an instance of record
+    if (Array.isArray(resultArray)) {
       // assert the type
-      if( (result as IInfusData).id ){
-        const dataInfus = result as IInfusData
-        console.log(dataInfus);
-        dataInfus.id = 1
-        dataInfus.stringBlob = `hello`
-        console.log(dataInfus);
-        response.json({ id: dataInfus.id, stringBlob: dataInfus.stringBlob })
+      if ((resultArray[0] as IInfusData).id) {
+
+        const dataInfus = resultArray as IInfusData[];
+        response.json(dataInfus);
       }
-    }else{
-      response.json({ msg: 'No Data!' }).status(401)
+    } else {
+      response.json({ msg: 'No Data!' }).status(401);
     }
   });
 });

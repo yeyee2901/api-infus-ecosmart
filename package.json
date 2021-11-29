@@ -12,7 +12,8 @@
   "author": "yeyee2901<gabriel777sh@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

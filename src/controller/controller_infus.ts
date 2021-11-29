@@ -1,6 +1,6 @@
 import mysql from 'mysql2';
 
-export type MySQLResult =
+export type MySQLQueryResult =
   | mysql.RowDataPacket[]
   | mysql.RowDataPacket[][]
   | mysql.OkPacket
@@ -9,16 +9,16 @@ export type MySQLResult =
 
 export interface IInfusData extends mysql.RowDataPacket {
   id: number;
-  stringBlob: string;
+  namaInfus: string;
 }
 
-export const queryData = (
+export const mysqlGetData = (
   host: string,
   user: string,
   password: string,
   database: string,
-  query: string = 'SELECT * FROM coba_image',
-  callback: (queryResult: MySQLResult) => void
+  query: string,
+  onSuccess: (queryResult: MySQLQueryResult) => void
 ) => {
   const dbConn = mysql.createConnection({
     host,
@@ -31,6 +31,7 @@ export const queryData = (
     if (err) {
       return err;
     }
-    callback(queryResult);
+
+    onSuccess(queryResult);
   });
 };
