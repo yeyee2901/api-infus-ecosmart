@@ -14,4 +14,6 @@ app.get('/', (_req, res) => {
 
 app.use('/api', infus)
 app.use('*', notFound)
-app.listen(PORT)
+app.listen(PORT, () => {
+  console.log(`Server on http://localhost:${PORT}`);
+})
