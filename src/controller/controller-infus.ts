@@ -3,7 +3,7 @@ import { IInfusData } from '../structures/struct-infus';
 import { Request, Response } from 'express';
 
 /**
- * Used to get all infus records from `infus_table`. Sends JSON as a response.
+ * Handler function used to get all infus records from `infus_table`. Sends JSON as a response.
  * @function
  * @name getInfusNames
  * @param {Request} _req - request object from Express
@@ -21,6 +21,8 @@ export const getInfusNames = (_req: Request, res: Response): void => {
           res.json(qres);
         }
       }
+    }else{
+      res.json({msg: qerr.message})
     }
   });
 };
