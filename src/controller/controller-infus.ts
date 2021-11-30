@@ -17,12 +17,28 @@ export const getAllInfus = (_req: Request, res: Response): void => {
   mysqlGetData(database, query, (qres, qerr) => {
     if (!qerr) {
       if (Array.isArray(qres)) {
-        if (qres as IInfusData[]) {
-          res.json(qres);
+        if (qres.length > 0) {
+          if ((qres[0] as IInfusData).id) {
+            res.json(qres).status(200);
+          } else {
+            res
+              .json({
+                msg: `[WARNING] You may have queried different data than expected since the data received has different shape`
+              })
+              .status(400);
+          }
+        } else {
+          // no result
+          res
+            .json({
+              msg: `[ERROR] NO INFUS RECORD FOUND`
+            })
+            .status(404);
         }
       }
     } else {
-      res.json({ msg: qerr.message });
+      // Query error
+      res.json({ msg: qerr.message }).status(400);
     }
   });
 };
@@ -43,12 +59,24 @@ export const getInfusByID = (req: Request, res: Response): void => {
   mysqlGetData(database, query, (qres, qerr) => {
     if (!qerr) {
       if (Array.isArray(qres)) {
-        if (qres as IInfusData[]) {
-          res.json(qres);
+        if (qres.length > 0) {
+          if ((qres[0] as IInfusData).id) {
+            res.json(qres).status(200);
+          } else {
+            res
+              .json({
+                msg: `[WARNING] You may have queried different data than expected since the data received have different shape`
+              })
+              .status(400);
+          }
+        } else {
+          res
+            .json({ msg: '[ERROR] NO INFUS RECORD FOUND WITH SPECIFIED ID' })
+            .status(404);
         }
       }
     } else {
-      res.json({ msg: qerr.message });
+      res.json({ msg: qerr.message }).status(400);
     }
   });
 };
