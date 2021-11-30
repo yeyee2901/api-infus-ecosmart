@@ -35,5 +35,5 @@ export const mysqlGetData = (
   dbConn.end();
 };
 
-export const mysqlInsertData = null
-export const mysqlUpdateData = null
+export const mysqlInsertData = null;
+export const mysqlUpdateData = null;
