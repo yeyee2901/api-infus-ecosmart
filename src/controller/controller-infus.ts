@@ -21,24 +21,22 @@ export const getAllInfus = (_req: Request, res: Response): void => {
           if ((qres[0] as IInfusData).id) {
             res.json(qres).status(200);
           } else {
-            res
-              .json({
-                msg: `[WARNING] You may have queried different data than expected since the data received has different shape`
-              })
-              .status(400);
+            res.status(500).json({
+              badRequest: false,
+              msg: `[WARNING] You may have queried different data than expected since the data received has different shape`
+            });
           }
         } else {
           // no result
-          res
-            .json({
-              msg: `[ERROR] NO INFUS RECORD FOUND`
-            })
-            .status(404);
+          res.status(404).json({
+            badRequest: false,
+            msg: `[ERROR] NO INFUS RECORD FOUND`
+          });
         }
       }
     } else {
-      // Query error
-      res.json({ msg: qerr.message }).status(400);
+      // Query error (internal)
+      res.status(400).json({ badRequest: true, msg: qerr.message }).status(400);
     }
   });
 };
@@ -63,20 +61,20 @@ export const getInfusByID = (req: Request, res: Response): void => {
           if ((qres[0] as IInfusData).id) {
             res.json(qres).status(200);
           } else {
-            res
-              .json({
-                msg: `[WARNING] You may have queried different data than expected since the data received have different shape`
-              })
-              .status(400);
+            res.status(500).json({
+              badRequest: true,
+              msg: `[WARNING] You may have queried different data than expected since the data received have different shape`
+            });
           }
         } else {
           res
-            .json({ msg: '[ERROR] NO INFUS RECORD FOUND WITH SPECIFIED ID' })
-            .status(404);
+            .status(404)
+            .json({ badRequest: false, msg: '[ERROR] NO INFUS RECORD FOUND WITH SPECIFIED ID' });
         }
       }
     } else {
-      res.json({ msg: qerr.message }).status(400);
+      // Query error (internal)
+      res.status(400).json({ badRequest: true, msg: qerr.message });
     }
   });
 };
