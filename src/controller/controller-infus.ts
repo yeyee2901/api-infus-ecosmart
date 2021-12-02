@@ -1,4 +1,4 @@
-import { mysqlGetData } from '../model/model-infus';
+import { mysqlQuery } from '../model/model-infus';
 import { IInfusData } from '../structures/struct-infus';
 import { Request, Response } from 'express';
 
@@ -14,7 +14,7 @@ export const getAllInfus = (_req: Request, res: Response): void => {
   const table = `infus_table`;
   const query = `SELECT * FROM ${table}`;
 
-  mysqlGetData(database, query, (qres, qerr) => {
+  mysqlQuery(database, query, (qres, qerr) => {
     if (!qerr) {
       if (Array.isArray(qres)) {
         if (qres.length > 0) {
@@ -54,7 +54,7 @@ export const getInfusByID = (req: Request, res: Response): void => {
   const table = `infus_table`;
   const query = `SELECT * FROM ${table} WHERE id = ${infusID}`;
 
-  mysqlGetData(database, query, (qres, qerr) => {
+  mysqlQuery(database, query, (qres, qerr) => {
     if (!qerr) {
       if (Array.isArray(qres)) {
         if (qres.length > 0) {
@@ -67,14 +67,38 @@ export const getInfusByID = (req: Request, res: Response): void => {
             });
           }
         } else {
-          res
-            .status(404)
-            .json({ badRequest: false, msg: '[ERROR] NO INFUS RECORD FOUND WITH SPECIFIED ID' });
+          res.status(404).json({
+            badRequest: false,
+            msg: '[ERROR] NO INFUS RECORD FOUND WITH SPECIFIED ID'
+          });
         }
       }
     } else {
       // Query error (internal)
       res.status(400).json({ badRequest: true, msg: qerr.message });
+    }
+  });
+};
+
+/**
+ * Handler function for /api/infus/vol/:id/:volumeLoadCell/:volumeCV route. Sends JSON as a response.
+ * @function
+ * @name getInfusByID
+ * @param {Request} _req - request object from Express
+ * @param {Response} res - response object from Express
+ * */
+export const insertInfusVolume = (req: Request, res: Response) => {
+  const idInfus = req.params.id;
+  const volumeLoadCell = req.params.volumeLoadCell;
+  const volumeCV = req.params.volumeCV;
+  const database = `infus`;
+  const query = `INSERT INTO infus_volume(IDInfus, volumeLoadcell, volumeCV) VALUES (${idInfus}, ${volumeLoadCell}, ${volumeCV})`;
+
+  mysqlQuery(database, query, (result, err) => {
+    if (!err) {
+      res.status(200).json(result);
+    } else {
+      res.status(400).json({ badrequest: true, msg: err.message });
     }
   });
 };

@@ -3,7 +3,11 @@
  * */
 
 import express from 'express';
-import { getInfusByID, getAllInfus } from '../controller/controller-infus';
+import {
+  getInfusByID,
+  getAllInfus,
+  insertInfusVolume
+} from '../controller/controller-infus';
 
 /** Express router object
  * @const
@@ -25,5 +29,13 @@ router.route('/').get(getAllInfus);
  * @memberof module:routes/infus
  * */
 router.route('/:id').get(getInfusByID);
+
+/** Route to INSERT infus by ID. Status 200 on success, 400 on failure.
+ * @name get/api/infus/:id
+ * @function
+ * @inner
+ * @memberof module:routes/infus
+ * */
+router.route('/vol/:id/:volumeLoadCell/:volumeCV').post(insertInfusVolume);
 
 export default router;

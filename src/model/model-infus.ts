@@ -13,14 +13,14 @@ const password = process.env.DB_PASSWORD as string;
  * @param {string} query - string query to execute
  * @param {function} handleResult - Callback function executed when the query finishes, receives the query result & QueryError (if any) as a parameter.
  * */
-export const mysqlGetData = (
+export const mysqlQuery = (
   database: string,
   query: string,
   handleResult: (
     _queryResult: MySQLQueryResult,
     _err: mysql.QueryError | null
   ) => void
-): void => {
+) => {
   const dbConn = mysql.createConnection({
     host,
     user,
@@ -34,6 +34,3 @@ export const mysqlGetData = (
 
   dbConn.end();
 };
-
-export const mysqlInsertData = null;
-export const mysqlUpdateData = null;
