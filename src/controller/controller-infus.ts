@@ -84,7 +84,7 @@ export const getInfusByID = (req: Request, res: Response): void => {
  * Handler function for /api/infus/vol/:id/:volumeLoadCell/:volumeCV route. Sends JSON as a response.
  * @function
  * @name getInfusByID
- * @param {Request} _req - request object from Express
+ * @param {Request} req - request object from Express
  * @param {Response} res - response object from Express
  * */
 export const insertInfusVolume = (req: Request, res: Response) => {
