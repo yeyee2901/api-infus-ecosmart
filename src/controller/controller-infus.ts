@@ -89,10 +89,10 @@ export const getInfusByID = (req: Request, res: Response): void => {
  * */
 export const insertInfusVolume = (req: Request, res: Response) => {
   const idInfus = req.params.id;
-  const volumeLoadCell = req.params.volumeLoadCell;
-  const volumeCV = req.params.volumeCV;
+  const volumeLoadcell = req.body.volumeLoadcell;
+  const volumeCV = req.body.volumeCV;
   const database = `infus`;
-  const query = `INSERT INTO infus_volume(IDInfus, volumeLoadcell, volumeCV) VALUES (${idInfus}, ${volumeLoadCell}, ${volumeCV})`;
+  const query = `INSERT INTO infus_volume(IDInfus, volumeLoadcell, volumeCV) VALUES (${idInfus}, ${volumeLoadcell}, ${volumeCV})`;
 
   mysqlQuery(database, query, (result, err) => {
     if (!err) {
