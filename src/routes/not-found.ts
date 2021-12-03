@@ -15,8 +15,19 @@ const router = express.Router();
  * @inner
  * @memberof module:routes/notFound
  * */
-router.route('*').get((_req, res) => {
-  res.status(404).json({ msg: 'content you requested is not found!' });
-});
+router
+  .route('*')
+  .get((_req, res) => {
+    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+  })
+  .post((_req, res) => {
+    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+  })
+  .put((_req, res) => {
+    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+  })
+  .delete((_req, res) => {
+    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+  });
 
 export default router;
