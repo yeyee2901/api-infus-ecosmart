@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import express from 'express';
 import notFound from './routes/not-found';
 import InfusRoutes from './routes/infus';
