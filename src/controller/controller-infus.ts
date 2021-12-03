@@ -1,5 +1,5 @@
 import { mysqlQuery } from '../model/model-infus';
-import { IInfusData } from '../structures/struct-infus';
+import { IInfusData, IInfusVolMeasurement } from '../structures/struct-infus';
 import { Request, Response } from 'express';
 
 /**
@@ -81,9 +81,9 @@ export const getInfusByID = (req: Request, res: Response): void => {
 };
 
 /**
- * Handler function for /api/infus/vol/:id/:volumeLoadCell/:volumeCV route. Sends JSON as a response.
+ * Handler function for POST/api/infus/vol/:id - Sends JSON as a response.
  * @function
- * @name getInfusByID
+ * @name insertInfusVolume
  * @param {Request} req - request object from Express
  * @param {Response} res - response object from Express
  * */
@@ -98,7 +98,35 @@ export const insertInfusVolume = (req: Request, res: Response) => {
     if (!err) {
       res.status(200).json(result);
     } else {
-      res.status(400).json({ badrequest: true, msg: err.message });
+      res.status(400).json({ badRequest: true, msg: err.message });
+    }
+  });
+};
+
+/**
+ * Handler function for GET/api/infus/vol/:id
+ * @function
+ * @name getInfusVolumeByID
+ * @param {Request} req - request object from Express
+ * @param {Response} res - response object from Express
+ * */
+export const getInfusVolumeByID = (req: Request, res: Response) => {
+  const idInfus = req.params.id;
+  const database = `infus`;
+  const query = `SELECT * FROM infus_volume WHERE IDInfus = ${idInfus}`;
+
+  mysqlQuery(database, query, (result, err) => {
+    if (!err) {
+      if (Array.isArray(result)) {
+        const infusData = result as IInfusVolMeasurement[];
+        if (infusData.length > 0) {
+          res.status(200).json(result);
+        } else {
+          res.status(404).json({ badRequest: false, msg: 'NO RESULT FOUND' });
+        }
+      }
+    } else {
+      res.status(400).json({ badRequest: true, msg: err.message });
     }
   });
 };

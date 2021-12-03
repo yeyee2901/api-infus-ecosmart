@@ -23,7 +23,9 @@ export interface IInfusData extends mysql.RowDataPacket {
  * @field `volumeCV: number`, volume "estimated" from computer vision in mL (mili-liters)
  * @memberof module:structures/infus
  * */
-export interface IInfusVolMeasurement extends IInfusData {
-  volumeLoadCell: number;
+export interface IInfusVolMeasurement extends mysql.RowDataPacket {
+  IDPengukuran: number;
+  IDInfus: number;
+  volumeLoadcell: number;
   volumeCV: number;
 }
