@@ -42,7 +42,7 @@ router.route(`/vol/:id`).get(getInfusVolumeByID);
 
 // POST ----------------------------------
 /** Route to INSERT infus by ID. Status 200 on success, 400 on failure.
- * @name get/api/infus/:id
+ * @name post/api/infus/:id
  * @function
  * @inner
  * @memberof module:routes/infus
