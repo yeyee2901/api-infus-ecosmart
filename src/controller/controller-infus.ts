@@ -23,7 +23,7 @@ export const getAllInfus = (_req: Request, res: Response): void => {
           } else {
             res.status(500).json({
               badRequest: false,
-              msg: `[WARNING] You may have queried different data than expected since the data received has different shape`
+              msg: 'WARNING: the data that you requested seems to have different shape than expected. Check the query & database'
             });
           }
         } else {
@@ -120,7 +120,14 @@ export const getInfusVolumeByID = (req: Request, res: Response) => {
       if (Array.isArray(result)) {
         const infusData = result as IInfusVolMeasurement[];
         if (infusData.length > 0) {
-          res.status(200).json(result);
+          if (infusData[0].volumeLoadcell) {
+            res.status(200).json(result);
+          } else {
+            res.status(500).json({
+              badRequest: false,
+              msg: 'WARNING: the data that you requested seems to have different form than expected. Check the query & database'
+            });
+          }
         } else {
           res.status(404).json({ badRequest: false, msg: 'NO RESULT FOUND' });
         }
