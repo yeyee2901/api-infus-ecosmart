@@ -47,6 +47,6 @@ router.route(`/vol/:id`).get(getInfusVolumeByID);
  * @inner
  * @memberof module:routes/infus
  * */
-router.route('/:id').post(insertInfusVolume);
+router.route('/vol/:id').post(insertInfusVolume);
 
 export default router;

@@ -1,5 +1,5 @@
 import mysql from 'mysql2';
-import { MySQLQueryResult } from '../structures/struct-mysql';
+import { MySQLQueryResult } from '../structures/struct-api';
 
 const host = process.env.DB_HOST as string;
 const user = process.env.DB_USER as string;

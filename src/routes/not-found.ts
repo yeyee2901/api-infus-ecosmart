@@ -3,6 +3,7 @@
  * */
 
 import express from 'express';
+import { APIErrorType } from '../structures/struct-api';
 
 /** Express router object
  * @const
@@ -18,16 +19,32 @@ const router = express.Router();
 router
   .route('*')
   .get((_req, res) => {
-    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+    res
+      .status(404)
+      .json({
+        err: true,
+        type: APIErrorType.RequestError,
+        msg: 'ROUTE DOES NOT EXIST!'
+      });
   })
   .post((_req, res) => {
-    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+    res
+      .status(404)
+      .json({
+        err: true,
+        type: APIErrorType.RequestError,
+        msg: 'ROUTE DOES NOT EXIST!'
+      });
   })
   .put((_req, res) => {
-    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+    res
+      .status(404)
+      .json({ err: true, type: APIErrorType, msg: 'ROUTE DOES NOT EXIST!' });
   })
   .delete((_req, res) => {
-    res.status(404).json({ badRequest: true, msg: 'ROUTE DOES NOT EXIST!' });
+    res
+      .status(404)
+      .json({ err: true, type: APIErrorType, msg: 'ROUTE DOES NOT EXIST!' });
   });
 
 export default router;
