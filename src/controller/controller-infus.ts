@@ -42,7 +42,7 @@ export const getAllInfus = (_req: Request, res: Response): void => {
           }
         } else {
           // no result
-          res.status(400).json({
+          res.status(404).json({
             err: true,
             type: APIErrorType.NoResultError,
             msg: `[ERROR] NO INFUS RECORD FOUND`
@@ -58,7 +58,6 @@ export const getAllInfus = (_req: Request, res: Response): void => {
           type: APIErrorType.DatabaseError,
           msg: qerr.message
         })
-        .status(400);
     }
   });
 };
@@ -90,7 +89,7 @@ export const getInfusByID = (req: Request, res: Response): void => {
             });
           }
         } else {
-          res.status(400).json({
+          res.status(404).json({
             err: true,
             type: APIErrorType.NoResultError,
             msg: '[ERROR] NO INFUS RECORD FOUND WITH SPECIFIED ID'
@@ -100,7 +99,7 @@ export const getInfusByID = (req: Request, res: Response): void => {
     } else {
       // Query error (internal)
       res
-        .status(400)
+        .status(500)
         .json({
           err: true,
           type: APIErrorType.DatabaseError,
@@ -139,7 +138,7 @@ export const getInfusVolumeByID = (req: Request, res: Response) => {
             });
           }
         } else {
-          res.status(400).json({
+          res.status(404).json({
             err: true,
             type: APIErrorType.NoResultError,
             msg: 'NO RESULT FOUND'
@@ -148,7 +147,7 @@ export const getInfusVolumeByID = (req: Request, res: Response) => {
       }
     } else {
       res
-        .status(400)
+        .status(500)
         .json({
           err: true,
           type: APIErrorType.DatabaseError,
@@ -166,6 +165,7 @@ export const getInfusVolumeByID = (req: Request, res: Response) => {
  * }
  *
  * ex:
+ * request to: POST/api/infus/vol/4
  * {
  *   volumeLoadcell: 250,
  *   volumeCV: 251
@@ -190,7 +190,7 @@ export const insertInfusVolume = (req: Request, res: Response) => {
       res.status(200).json(result);
     } else {
       res
-        .status(400)
+        .status(500)
         .json({
           err: true,
           type: APIErrorType.DatabaseError,

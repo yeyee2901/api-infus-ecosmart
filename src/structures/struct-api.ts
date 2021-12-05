@@ -28,8 +28,9 @@ export type MySQLQueryResult =
  *   should check the API route they're requesting. This error should only appear on NOT FOUND route.
  * - `DatabaseError`: error from the database side (500), in this case, user should
  *   check the query string in controller & database. This also includes INSERT fail & UPDATE fail.
- * - `NoResultError`: when the records requested in the query returns an array of length 0. In this case,
- *   this means the data doesn't exists yet. Logics behind checking this error should be handled on
+ * - `NoResultError`: example of this is when the records requested in the
+ *   query returns an array of length 0. In this case, this means the data
+ *   doesn't exists yet. Logics behind checking this error should be handled on
  *   the client side.
  */
 /* eslint-disable */
